@@ -1,0 +1,75 @@
+/* change color palette slightly */
+body {
+  background-color: black;
+}
+
+.well {
+  background-color: #c3c3c3;
+  color: black;
+}
+
+h2 {
+  color: #ffffff;
+  text-transform: none;
+  font-size: 2.25rem;
+}
+
+/* adjust labels on the inputs: bold + remove space underneath */
+.control-label {
+  font-weight: bold;
+}
+
+label {
+  margin-bottom: 0;
+  font-size: 0.75rem;
+}
+
+#max_overlap_ratio-label, #maximum_sentence_length-label {
+  position: relative;
+  bottom: -15px;
+}
+
+/* re-define some of the button behavior */
+.button:hover {
+    cursor: pointer;
+}
+
+/* return to original state after click */
+.btn-default:focus {
+    color: #000;
+    background-color: #fff;
+    border-color: #fff;
+    box-shadow: 0 0 0 0;
+}
+
+/* keep the hover effect even when in already clicked */
+.btn-default:focus:hover {
+  background-color: #ececec;
+  outline-color: #ececec;
+}
+
+.btn {
+  text-transform: none;
+  font-weight: bold;
+}
+
+/* hide the min/max labels on the sliders (they're redundant) */
+.irs-min[style], .irs-max[style] {
+    visibility: hidden !important;
+}
+
+#dad_text {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 30%;
+  transform: translate(-50%, -50%);
+}
+
+img {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 80%;
+  transform: translate(-50%, -50%);
+}
