@@ -20,13 +20,7 @@ h2 {
 }
 
 label {
-  margin-bottom: 0;
   font-size: 0.75rem;
-}
-
-#max_overlap_ratio-label, #maximum_sentence_length-label {
-  position: relative;
-  bottom: -15px;
 }
 
 /* re-define some of the button behavior */
@@ -53,23 +47,8 @@ label {
   font-weight: bold;
 }
 
-/* hide the min/max labels on the sliders (they're redundant) */
-.irs-min[style], .irs-max[style] {
-    visibility: hidden !important;
-}
-
 #dad_text {
-  margin: 0;
-  position: absolute;
-  top: 50%;
-  left: 30%;
-  transform: translate(-50%, -50%);
-}
-
-img {
-  margin: 0;
-  position: absolute;
-  top: 50%;
-  left: 80%;
-  transform: translate(-50%, -50%);
+  position: relative;
+  margin-left: -25px;
+  margin-top: 50px;
 }
