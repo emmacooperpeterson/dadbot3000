@@ -92,8 +92,8 @@ server <- function(input, output, session) {
     footer = modalButton("cool beans !", icon=icon("check"))
   ))
 
-  inputs <- readRDS("data/inputs.RDS")
-  generated_texts <- readRDS("data/generated_texts.RDS")
+  inputs <- readRDS("../data/inputs.RDS")
+  generated_texts <- readRDS("../data/generated_texts.RDS")
 
   # object to store reactive values <-  referenced later via `values$...`
   values <- reactiveValues()
@@ -107,6 +107,7 @@ server <- function(input, output, session) {
 
 
   dadBot <- reactive({
+
     index <-
       inputs %>%
       filter(markov_state_size == as.integer(input$markov_state_size),
