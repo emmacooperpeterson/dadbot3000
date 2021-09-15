@@ -4,7 +4,8 @@ library(shinyjs)
 library(bslib)
 library(lubridate)
 
-# rsconnect::deployApp() to deploy to https://emmacooperpeterson.shinyapps.io/dad_texts
+# rsconnect::deployApp(appDir="dadbot3000", appName="dadBot3000")
+# to deploy to https://emmacooperpeterson.shinyapps.io/dadBot3000
 
 
 # ui ----------------------------------------------------------------------
@@ -21,8 +22,8 @@ ui <- fluidPage(
   verticalLayout(
 
     titlePanel(
-      title="Welcome to DadBot3000™",
-      windowTitle="DadBot3000™"
+      title="Welcome to dadBot3000™",
+      windowTitle="dadBot3000™"
     ),
 
     wellPanel(
@@ -92,8 +93,8 @@ server <- function(input, output, session) {
     footer = modalButton("cool beans !", icon=icon("check"))
   ))
 
-  inputs <- readRDS("../data/inputs.RDS")
-  generated_texts <- readRDS("../data/generated_texts.RDS")
+  inputs <- readRDS("data/inputs.RDS")
+  generated_texts <- readRDS("data/generated_texts.RDS")
 
   # object to store reactive values <-  referenced later via `values$...`
   values <- reactiveValues()

@@ -165,5 +165,5 @@ result <- furrr::future_pmap(
 
 final_params$index <- 1:nrow(final_params)
 
-saveRDS(final_params, file="data/inputs.RDS")
-saveRDS(result, file="data/generated_texts.RDS")
+saveRDS(final_params, file="dadbot3000/data/inputs.RDS")
+saveRDS(result, file="dadbot3000/data/generated_texts.RDS")
