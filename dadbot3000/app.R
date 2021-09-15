@@ -30,8 +30,8 @@ ui <- fluidPage(
 
       radioButtons(
         "markov_state_size",
-        label="Markov State Size (probabilities can be based on the previous
-               one or two words)",
+        label="Markov State Size (the probability of the next work can be based
+               on the previous one or two words)",
         choices=c("1", "2"),
         selected="2",
         inline=TRUE
@@ -73,23 +73,31 @@ server <- function(input, output, session) {
 
   is_dads_birthday <- FALSE
   now <- today(tzone="EST")
-  if (month(now) == 9 & day(now) == 3) is_dads_birthday <- TRUE
+  if (month(now) == 9 & day(now) == 14) is_dads_birthday <- TRUE
+  # TODO set day here to 18
 
   welcome_message <- if_else(
     is_dads_birthday,
-    "HAPPY BIRTHDAY!!!",
+    "HAPPY BIRTHDAY!!!!!!!!!!!!!!!!!!",
     "Welcome to dadBot3000™"
   )
 
-  description <- "dadBot3000™ is a Markov chain text generator. He was trained
-  on a year of texts sent to Emma by her dad. Once you've built the bot to your
-  specifications, he will deliver newly generated texts where each word is based
-  on the probability of that word appearing after the previous word(s) in the
-  training texts."
+  description <- "For your birthday, I've turned you into a robot 😎
+  <br><br>
+  dadBot3000™ is a Markov chain text generator. He was trained on a year of
+  texts sent from you to Emma! Once you've built the bot to your specifications,
+  he will deliver new texts that he came up with all by himself by learning from
+  the texts you've sent to me. He often produces gibberish, but is occasionally
+  silly and/or profound -- much like you 🤪
+  <br><br><br>
+  HBD ILY
+  <br>
+  ❤️emma
+  "
 
   showModal(modalDialog(
     title = welcome_message,
-    description,
+    HTML(description),
     footer = modalButton("cool beans !", icon=icon("check"))
   ))
 
