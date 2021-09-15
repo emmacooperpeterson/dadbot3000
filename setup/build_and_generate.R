@@ -156,12 +156,14 @@ plan(future::multisession, workers = floor(availableCores() / 2))
 
 result <- furrr::future_pmap(
   final_params,
-  test_params,
+  build_and_generate,
   input_text=text_data,
   return_texts=TRUE,
   .options=furrr_options(seed = TRUE),
   .progress=TRUE
 )
+
+final_params$index <- 1:nrow(final_params)
 
 saveRDS(final_params, file="data/inputs.RDS")
 saveRDS(result, file="data/generated_texts.RDS")
