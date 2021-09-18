@@ -54,15 +54,15 @@ ui <- fluidPage(
         inline=TRUE
       ),
 
-      actionButton("build_model", "Build DadBot3000™", class="button"),
-      hidden(actionButton("generate", "Generate DadText™", class="button"))
+      actionButton("build_model", "Build dadBot3000™", class="button"),
+      hidden(actionButton("generate", "Generate dadText™", class="button"))
     ),
 
     br(),
 
     fluidRow(
       column(3, imageOutput("image")),
-      column(9, align="left", textOutput("dad_text"))
+      column(2, align="left", textOutput("dad_text"))
     )
   )
 )
@@ -94,13 +94,14 @@ server <- function(input, output, session) {
   <br>
   ❤️emma
   "
+  # TODO UNCOMMENT
+  # showModal(modalDialog(
+  #   title = welcome_message,
+  #   HTML(description),
+  #   footer = modalButton("cool beans !", icon=icon("check"))
+  # ))
 
-  showModal(modalDialog(
-    title = welcome_message,
-    HTML(description),
-    footer = modalButton("cool beans !", icon=icon("check"))
-  ))
-
+  # load data
   inputs <- readRDS("data/inputs.RDS")
   generated_texts <- readRDS("data/generated_texts.RDS")
 
@@ -114,9 +115,8 @@ server <- function(input, output, session) {
     shinyjs::hide("dad_text")
   })
 
-
+  # load texts based on inputs
   dadBot <- reactive({
-
     index <-
       inputs %>%
       filter(markov_state_size == as.integer(input$markov_state_size),
@@ -135,6 +135,10 @@ server <- function(input, output, session) {
     shinyjs::hide("dad_text")
     shinyjs::hide("image")
     shinyjs::hide("generate")
+
+    # update button labels
+    updateActionButton(session, "build_model", label = "Re-build dadBot3000™")
+    updateActionButton(session, "generate", label = "Generate dadText™")
 
     # simulate a progress bar
     # the model actually builds very quickly
@@ -169,6 +173,9 @@ server <- function(input, output, session) {
 
   observeEvent(input$generate, {
 
+    # update button label
+    updateActionButton(session, "generate", label = "Generate another dadText™")
+
     # case where model produced nothing
     if (all(is.na(values$generated_texts))) {
       msg <- "dadBot3000™ does not like this combination of inputs :( pls rebuild"
@@ -177,7 +184,8 @@ server <- function(input, output, session) {
     } else {
       # if we have any generated texts left, print the next one
       if (values$counter < length(values$generated_texts)) {
-        output$dad_text <- renderText({values$generated_texts[values$counter]})
+        text <- values$generated_texts[values$counter]
+        output$dad_text <- renderText(text)
         values$counter = values$counter + 1
 
      # otherwise, print that we're out of texts

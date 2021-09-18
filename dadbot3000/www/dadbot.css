@@ -47,8 +47,24 @@ label {
   font-weight: bold;
 }
 
+
 #dad_text {
+  background-color: white;
+  color: black;
+  text-align: center;
   position: relative;
-  margin-left: -25px;
-  margin-top: 50px;
+	border-radius: .4em;
+	padding: 10px 10px;
+}
+
+#dad_text:after {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 50%;
+	border: 10px solid transparent;
+	border-right-color: white;
+	border-left: 0;
+	margin-top: -15px;
+	margin-left: -10px;
 }
