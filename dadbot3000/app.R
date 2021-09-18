@@ -26,42 +26,40 @@ ui <- fluidPage(
       windowTitle="dadBot3000™"
     ),
 
-    column(12,
-      wellPanel(
+    wellPanel(
 
-        radioButtons(
-          "markov_state_size",
-          label=HTML("<span class='header'>Markov State Size</span> <br>
-                      - the probability of the next work can be based on the previous one or two words<br>
-                      - higher values will produce ~weirder~ texts"),
-          choices=c("1", "2"),
-          selected="2",
-          inline=TRUE
+      radioButtons(
+        "markov_state_size",
+        label=HTML("<span class='header'>Markov State Size</span> <br>
+                    - the probability of the next work can be based on the previous one or two words<br>
+                    - higher values will produce ~weirder~ texts"),
+        choices=c("1", "2"),
+        selected="2",
+        inline=TRUE
+      ),
+
+      radioButtons(
+        "max_overlap_ratio",
+        label=HTML(
+          "<span class='header'>Maximum Overlap Ratio</span><br>
+          - exclude generated texts that overlap an original text by more than this percentage<br>
+          - lower values will produce ~weirder~ texts"
         ),
+        choices=c("20%" = 0.2, "40%" = 0.4, "60%" = 0.6, "80%" = 0.8),
+        selected=0.6,
+        inline=TRUE
+      ),
 
-        radioButtons(
-          "max_overlap_ratio",
-          label=HTML(
-            "<span class='header'>Maximum Overlap Ratio</span><br>
-            - exclude generated texts that overlap an original text by more than this percentage<br>
-            - lower values will produce ~weirder~ texts"
-          ),
-          choices=c("20%" = 0.2, "40%" = 0.4, "60%" = 0.6, "80%" = 0.8),
-          selected=0.6,
-          inline=TRUE
-        ),
+      radioButtons(
+        "maximum_sentence_length",
+        label=HTML("<span class='header'>Maximum Generated Text Length</span>"),
+        choices=c(20, 40, 60, 80, 100),
+        selected=40,
+        inline=TRUE
+      ),
 
-        radioButtons(
-          "maximum_sentence_length",
-          label=HTML("<span class='header'>Maximum Generated Text Length</span>"),
-          choices=c(20, 40, 60, 80, 100),
-          selected=40,
-          inline=TRUE
-        ),
-
-        actionButton("build_model", "Build dadBot3000™", class="button"),
-        hidden(actionButton("generate", "Generate dadText™", class="button"))
-      )
+      actionButton("build_model", "Build dadBot3000™", class="button"),
+      hidden(actionButton("generate", "Generate dadText™", class="button"))
     ),
 
     br(),
@@ -77,9 +75,12 @@ ui <- fluidPage(
 # server ------------------------------------------------------------------
 server <- function(input, output, session) {
 
+
+  # WELCOME MODAL ---------------------------------------------------------
+
   is_dads_birthday <- FALSE
   now <- today(tzone="EST")
-  if (month(now) == 9 & day(now) == 14) is_dads_birthday <- TRUE
+  if (month(now) == 9 & day(now) == 17) is_dads_birthday <- TRUE
   # TODO set day here to 18
 
   welcome_message <- if_else(
@@ -100,12 +101,15 @@ server <- function(input, output, session) {
   <br>
   ❤️emma
   "
-  # TODO UNCOMMENT
-  # showModal(modalDialog(
-  #   title = welcome_message,
-  #   HTML(description),
-  #   footer = modalButton("cool beans !", icon=icon("check"))
-  # ))
+
+  showModal(modalDialog(
+    title = welcome_message,
+    HTML(description),
+    footer = modalButton("cool beans !", icon=icon("check"))
+  ))
+
+
+  # LOAD BEHAVIOR ---------------------------------------------------------
 
   # load data
   inputs <- readRDS("data/inputs.RDS")
@@ -134,6 +138,7 @@ server <- function(input, output, session) {
   })
 
 
+  # RETRIEVE MODEL OUTPUT -------------------------------------------------
 
   observeEvent(input$build_model, {
 
@@ -147,7 +152,7 @@ server <- function(input, output, session) {
     updateActionButton(session, "generate", label = "Generate dadText™")
 
     # simulate a progress bar
-    # the model actually builds very quickly
+    # the generated texts are collected very quickly
     # which can make it look like the app isn't doing anything
     progress <- Progress$new()
     on.exit(progress$close()) # make sure it closes when we exit this reactive
@@ -158,16 +163,14 @@ server <- function(input, output, session) {
     values$counter <- 1
 
     # simulate the completion of the progress bar once the model is built
-    Sys.sleep(0.5)
+    Sys.sleep(runif(1))
     progress$inc(2/3)
-    Sys.sleep(1)
+    Sys.sleep(runif(1)+1)
     progress$inc(3/3)
 
     # render the image
     output$image <- renderImage({
       filename <- normalizePath(file.path('./images',"dadbot.png"))
-
-      # Return a list containing the filename
       list(src = filename, height="300px", width="300px")
     }, deleteFile = FALSE)
 
@@ -176,6 +179,8 @@ server <- function(input, output, session) {
   })
 
 
+
+  # SHOW A GENERATED TEXT -------------------------------------------------
 
   observeEvent(input$generate, {
 
@@ -188,22 +193,20 @@ server <- function(input, output, session) {
       output$dad_text <- renderText(msg)
 
     } else {
-      # if we have any generated texts left, print the next one
+      # if we have any generated texts left, show the next one
       if (values$counter < length(values$generated_texts)) {
         text <- values$generated_texts[values$counter]
         output$dad_text <- renderText(text)
         values$counter = values$counter + 1
 
-     # otherwise, print that we're out of texts
+     # otherwise, show that we're out of texts
       } else {
         output$dad_text <- renderText("dadBot3000™ has nothing more to say :(")
       }
     }
     shinyjs::show("dad_text")
   })
-
 }
-
 
 
 # app ---------------------------------------------------------------------
