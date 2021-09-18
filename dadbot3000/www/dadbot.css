@@ -11,16 +11,24 @@ body {
 h2 {
   color: #ffffff;
   text-transform: none;
-  font-size: 2.25rem;
-}
-
-/* adjust labels on the inputs: bold + remove space underneath */
-.control-label {
-  font-weight: bold;
+  font-size: 2.5rem;
 }
 
 label {
-  font-size: 0.75rem;
+  font-size: 0.9rem;
+}
+
+.btn {
+  font-size: 1rem;
+  border: 2px solid black;
+  text-transform: none;
+  font-weight: bold;
+}
+
+.btn-secondary, .btn-default:not(.btn-primary):not(.btn-info):not(.btn-success):not(.btn-warning):not(.btn-danger):not(.btn-dark):not(.btn-outline-primary):not(.btn-outline-info):not(.btn-outline-success):not(.btn-outline-warning):not(.btn-outline-danger):not(.btn-outline-dark) {
+  border: 2px solid black;
+
+
 }
 
 /* re-define some of the button behavior */
@@ -29,30 +37,23 @@ label {
 }
 
 /* return to original state after click */
-.btn-default:focus {
-    color: #000;
-    background-color: #fff;
-    border-color: #fff;
-    box-shadow: 0 0 0 0;
+.btn-check:focus+.btn-secondary, .btn-check:focus+.btn-default:not(.btn-primary):not(.btn-info):not(.btn-success):not(.btn-warning):not(.btn-danger):not(.btn-dark):not(.btn-outline-primary):not(.btn-outline-info):not(.btn-outline-success):not(.btn-outline-warning):not(.btn-outline-danger):not(.btn-outline-dark), .btn-secondary:focus, .btn-default:focus:not(.btn-primary):not(.btn-info):not(.btn-success):not(.btn-warning):not(.btn-danger):not(.btn-dark):not(.btn-outline-primary):not(.btn-outline-info):not(.btn-outline-success):not(.btn-outline-warning):not(.btn-outline-danger):not(.btn-outline-dark) {
+  border-color: black;
 }
 
 /* keep the hover effect even when in already clicked */
-.btn-default:focus:hover {
-  background-color: #ececec;
-  outline-color: #ececec;
+.btn-check:focus:hover+.btn-secondary, .btn-check:focus:hover+.btn-default:not(.btn-primary):not(.btn-info):not(.btn-success):not(.btn-warning):not(.btn-danger):not(.btn-dark):not(.btn-outline-primary):not(.btn-outline-info):not(.btn-outline-success):not(.btn-outline-warning):not(.btn-outline-danger):not(.btn-outline-dark), .btn-secondary:focus, .btn-default:focus:hover:not(.btn-primary):not(.btn-info):not(.btn-success):not(.btn-warning):not(.btn-danger):not(.btn-dark):not(.btn-outline-primary):not(.btn-outline-info):not(.btn-outline-success):not(.btn-outline-warning):not(.btn-outline-danger):not(.btn-outline-dark) {
+  border-color: white;
 }
 
-.btn {
-  text-transform: none;
-  font-weight: bold;
-}
+
 
 
 #dad_text {
   background-color: white;
   color: black;
   text-align: center;
-  position: relative;
+  position: absolute;
 	border-radius: .4em;
 	padding: 10px 10px;
 }
@@ -67,4 +68,12 @@ label {
 	border-left: 0;
 	margin-top: -15px;
 	margin-left: -10px;
+	font-size: 1.2rem;
+}
+
+.header {
+  background-color: black;
+  color: white;
+  padding: 1px 5px;
+  font-weight: bold;
 }

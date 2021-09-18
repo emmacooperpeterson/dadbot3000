@@ -26,36 +26,42 @@ ui <- fluidPage(
       windowTitle="dadBot3000™"
     ),
 
-    wellPanel(
+    column(12,
+      wellPanel(
 
-      radioButtons(
-        "markov_state_size",
-        label="Markov State Size (the probability of the next work can be based
-               on the previous one or two words)",
-        choices=c("1", "2"),
-        selected="2",
-        inline=TRUE
-      ),
+        radioButtons(
+          "markov_state_size",
+          label=HTML("<span class='header'>Markov State Size</span> <br>
+                      - the probability of the next work can be based on the previous one or two words<br>
+                      - higher values will produce ~weirder~ texts"),
+          choices=c("1", "2"),
+          selected="2",
+          inline=TRUE
+        ),
 
-      radioButtons(
-        "max_overlap_ratio",
-        label="Maximum Overlap Ratio (exclude generated texts that overlap an
-               original text by more than this percentage)",
-        choices=c("20%" = 0.2, "40%" = 0.4, "60%" = 0.6, "80%" = 0.8),
-        selected=0.6,
-        inline=TRUE
-      ),
+        radioButtons(
+          "max_overlap_ratio",
+          label=HTML(
+            "<span class='header'>Maximum Overlap Ratio</span><br>
+            - exclude generated texts that overlap an original text by more than this percentage<br>
+            - lower values will produce ~weirder~ texts"
+          ),
+          choices=c("20%" = 0.2, "40%" = 0.4, "60%" = 0.6, "80%" = 0.8),
+          selected=0.6,
+          inline=TRUE
+        ),
 
-      radioButtons(
-        "maximum_sentence_length",
-        label="Maximum Generrated Text Length",
-        choices=c(20, 40, 60, 80, 100),
-        selected=40,
-        inline=TRUE
-      ),
+        radioButtons(
+          "maximum_sentence_length",
+          label=HTML("<span class='header'>Maximum Generated Text Length</span>"),
+          choices=c(20, 40, 60, 80, 100),
+          selected=40,
+          inline=TRUE
+        ),
 
-      actionButton("build_model", "Build dadBot3000™", class="button"),
-      hidden(actionButton("generate", "Generate dadText™", class="button"))
+        actionButton("build_model", "Build dadBot3000™", class="button"),
+        hidden(actionButton("generate", "Generate dadText™", class="button"))
+      )
     ),
 
     br(),
