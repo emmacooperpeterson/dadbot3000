@@ -66,7 +66,11 @@ ui <- fluidPage(
 
     fluidRow(
       column(2, imageOutput("image")),
-      column(2, align="left", textOutput("dad_text"))
+      column(2, align="left", textOutput("dad_text")),
+      column(8, align="right",
+             actionButton("see_code",
+                          "See the code!",
+                          onclick ="window.open('https://github.com/emmacooperpeterson/dadbot3000', '_blank')"))
     )
   )
 )

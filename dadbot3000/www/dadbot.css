@@ -43,6 +43,13 @@ label {
   border-color: white;
 }
 
+#see_code {
+  background-color: #64000a;
+  border: 2px solid white;
+  color: white;
+  margin-right: 5%;
+}
+
 /* create a speech bubble around the generated text (and style the font) */
 #dad_text {
   background-color: white;
