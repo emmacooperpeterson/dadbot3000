@@ -11,7 +11,7 @@ library(lubridate)
 # ui ----------------------------------------------------------------------
 ui <- fluidPage(
 
-  theme = bslib::bs_theme(version = 5, bootswatch = "lux"),
+  theme = bslib::bs_theme(version = 4, bootswatch = "lux"),
 
   useShinyjs(),
 
@@ -31,7 +31,7 @@ ui <- fluidPage(
       radioButtons(
         "markov_state_size",
         label=HTML("<span class='header'>Markov State Size</span> <br>
-                    - the probability of the next work can be based on the previous one or two words<br>
+                    - the probability of the next word can be based on the previous one or two words<br>
                     - higher values will produce ~weirder~ texts"),
         choices=c("1", "2"),
         selected="2",
@@ -94,12 +94,12 @@ server <- function(input, output, session) {
   dadBot3000™ is a Markov chain text generator. He was trained on a year of
   texts sent from you to Emma! Once you've built the bot to your specifications,
   he will deliver new texts that he came up with all by himself by learning from
-  the texts you've sent to me. He often produces gibberish, but is occasionally
-  silly and/or profound -- much like you 🤪
+  the texts you've sent to me. He generally produces gibberish, but is
+  occasionally silly and/or profound -- much like you 🤪
   <br><br><br>
   HBD ILY
   <br>
-  ❤️emma
+  ❤️ emma
   "
 
   showModal(modalDialog(
@@ -107,6 +107,8 @@ server <- function(input, output, session) {
     HTML(description),
     footer = modalButton("cool beans !", icon=icon("check"))
   ))
+
+
 
 
   # LOAD BEHAVIOR ---------------------------------------------------------

@@ -1,4 +1,3 @@
-/* change color palette slightly */
 body {
   background-color: black;
 }
@@ -18,6 +17,7 @@ label {
   font-size: 0.9rem;
 }
 
+/* change a bunch of button behaviors */
 .btn {
   font-size: 1rem;
   border: 2px solid black;
@@ -27,11 +27,8 @@ label {
 
 .btn-secondary, .btn-default:not(.btn-primary):not(.btn-info):not(.btn-success):not(.btn-warning):not(.btn-danger):not(.btn-dark):not(.btn-outline-primary):not(.btn-outline-info):not(.btn-outline-success):not(.btn-outline-warning):not(.btn-outline-danger):not(.btn-outline-dark) {
   border: 2px solid black;
-
-
 }
 
-/* re-define some of the button behavior */
 .button:hover {
     cursor: pointer;
 }
@@ -46,9 +43,7 @@ label {
   border-color: white;
 }
 
-
-
-
+/* create a speech bubble around the generated text (and style the font) */
 #dad_text {
   background-color: white;
   color: black;
@@ -71,9 +66,15 @@ label {
 	font-size: 1.2rem;
 }
 
+/* style labels on inputs */
 .header {
   background-color: black;
   color: white;
   padding: 1px 5px;
   font-weight: bold;
+}
+
+/* move the welcome modal down */
+.modal-content {
+  margin-top: 35%;
 }
