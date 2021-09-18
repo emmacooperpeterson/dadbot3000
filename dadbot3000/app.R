@@ -11,7 +11,7 @@ library(lubridate)
 # ui ----------------------------------------------------------------------
 ui <- fluidPage(
 
-  theme = bslib::bs_theme(bootswatch = "lux"),
+  theme = bslib::bs_theme(version = 5, bootswatch = "lux"),
 
   useShinyjs(),
 
@@ -61,7 +61,7 @@ ui <- fluidPage(
     br(),
 
     fluidRow(
-      column(3, imageOutput("image")),
+      column(2, imageOutput("image")),
       column(2, align="left", textOutput("dad_text"))
     )
   )
@@ -162,7 +162,7 @@ server <- function(input, output, session) {
       filename <- normalizePath(file.path('./images',"dadbot.png"))
 
       # Return a list containing the filename
-      list(src = filename, width = "300", height = "300")
+      list(src = filename, height="300px", width="300px")
     }, deleteFile = FALSE)
 
     shinyjs::show("image")
